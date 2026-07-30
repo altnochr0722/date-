@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Special Question 💕</title>
+  <style>
+    :root {
+      --bg-color: #ffe6ea;
+      --card-bg: #ffffff;
+      --primary: #ff4b72;
+      --primary-hover: #e0365d;
+      --text-color: #4a4a4a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 450px;
+      width: 100%;
+      position: relative;
+    }
+
+    .gif-container img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      position: relative;
+      min-height: 50px;
+    }
+
+    button {
+      padding: 12px 28px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .btn-yes {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-yes:hover {
+      background-color: var(--primary-hover);
+      transform: scale(1.05);
+    }
+
+    .btn-no {
+      background-color: #e0e0e0;
+      color: #555;
+      position: absolute;
+    }
+
+    /* Date Planner Step */
+    .hidden {
+      display: none;
+    }
+
+    .planner-section {
+      text-align: left;
+      margin-top: 15px;
+    }
+
+    .planner-section label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      margin-top: 15px;
+      color: #444;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .option-card {
+      border: 2px solid #eee;
+      padding: 10px;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .option-card:hover, .option-card.selected {
+      border-color: var(--primary);
+      background-color: #fff0f3;
+    }
+
+    .option-card span {
+      display: block;
+      font-size: 1.5rem;
+      margin-bottom: 4px;
+    }
+
+    input[type="date"], input[type="time"] {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #eee;
+      border-radius: 10px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    input[type="date"]:focus, input[type="time"]:focus {
+      border-color: var(--primary);
+    }
+
+    .btn-submit {
+      width: 100%;
+      margin-top: 20px;
+      background-color: var(--primary);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- STEP 1: Proposal Screen -->
+  <div class="container" id="step-proposal">
+    <div class="gif-container">
+      <img id="main-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHc3bnU2dWZ4ZHA0d2x5Z2R2MWk0ZXBybmRjc3p5b3RscXh4eGZ3dyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LpDmM2w9aEfA2O5A20/giphy.gif" alt="Cute animated bear" />
+    </div>
+    <h1 id="heading-text">Will you go out with me? 💕</h1>
+    <p id="sub-text">I promise it'll be the best date ever!</p>
+    
+    <div class="btn-group" id="btn-container">
+      <button class="btn-yes" id="btn-yes">YES! 🥰</button>
+      <button class="btn-no" id="btn-no">No 😢</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: Date Planner Screen -->
+  <div class="container hidden" id="step-planner">
+    <h1>YAY! It's a Date! 🎉</h1>
+    <p>Help me plan our perfect day:</p>
+
+    <div class="planner-section">
+      <label>What are we doing?</label>
+      <div class="options-grid" id="activity-grid">
+        <div class="option-card" data-val="Coffee & Boba"><span>🧋</span>Coffee / Boba</div>
+        <div class="option-card" data-val="Dinner Date"><span>🍝</span>Dinner Date</div>
+        <div class="option-card" data-val="Movie Night"><span>🎬</span>Movie Night</div>
+        <div class="option-card" data-val="Arcade & Fun"><span>👾</span>Arcade Games</div>
+      </div>
+
+      <label for="date-input">Pick a day:</label>
+      <input type="date" id="date-input" />
+
+      <label for="time-input">Pick a time:</label>
+      <input type="time" id="time-input" />
+
+      <button class="btn-submit" id="btn-confirm">Lock it in! 💖</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: Confirmation Screen -->
+  <div class="container hidden" id="step-thanks">
+    <div class="gif-container">
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Zyd2VtbWsxb3QzbWk1ZjAydHFua3BybnIxd2p4azM2azlseXFzaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif" alt="Happy cat" />
+    </div>
+    <h1>Can't Wait! ✨</h1>
+    <p id="summary-text">It's a date!</p>
+  </div>
+
+  <script>
+    const btnNo = document.getElementById('btn-no');
+    const btnYes = document.getElementById('btn-yes');
+    const btnContainer = document.getElementById('btn-container');
+    const stepProposal = document.getElementById('step-proposal');
+    const stepPlanner = document.getElementById('step-planner');
+    const stepThanks = document.getElementById('step-thanks');
+    const activityGrid = document.getElementById('activity-grid');
+    const btnConfirm = document.getElementById('btn-confirm');
+    let selectedActivity = '';
+
+    // Set initial position for 'No' button
+    btnNo.style.left = `${btnYes.offsetLeft + btnYes.offsetWidth + 15}px`;
+
+    // Teleport 'No' button on hover or touch
+    function moveNoButton() {
+      const containerRect = stepProposal.getBoundingClientRect();
+      const btnRect = btnNo.getBoundingClientRect();
+
+      // Calculate safe area inside container
+      const maxX = containerRect.width - btnRect.width - 20;
+      const maxY = containerRect.height - btnRect.height - 20;
+
+      const randomX = Math.max(10, Math.floor(Math.random() * maxX));
+      const randomY = Math.max(10, Math.floor(Math.random() * maxY));
+
+      btnNo.style.position = 'absolute';
+      btnNo.style.left = `${randomX}px`;
+      btnNo.style.top = `${randomY}px`;
+    }
+
+    btnNo.addEventListener('mouseenter', moveNoButton);
+    btnNo.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      moveNoButton();
+    });
+
+    // Clicking 'Yes' transition
+    btnYes.addEventListener('click', () => {
+      stepProposal.classList.add('hidden');
+      stepPlanner.classList.remove('hidden');
+    });
+
+    // Selection logic for activities
+    activityGrid.addEventListener('click', (e) => {
+      const card = e.target.closest('.option-card');
+      if (!card) return;
+
+      document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      selectedActivity = card.getAttribute('data-val');
+    });
+
+    // Confirmation screen
+    btnConfirm.addEventListener('click', () => {
+      const dateVal = document.getElementById('date-input').value;
+      const timeVal = document.getElementById('time-input').value;
+
+      if (!selectedActivity || !dateVal) {
+        alert('Please pick an activity and a date!');
+        return;
+      }
+
+      document.getElementById('summary-text').innerHTML = 
+        `We're going for <strong>${selectedActivity}</strong> on <strong>${dateVal}</strong>${timeVal ? ` at <strong>${timeVal}</strong>` : ''}! See you then! 🥰`;
+
+      stepPlanner.classList.add('hidden');
+      stepThanks.classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
